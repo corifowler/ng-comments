@@ -1,6 +1,8 @@
-## Welcome to My Project
+## Comment List
 
-> I am your Readme.md file, you should probably update me.
+This is a basic app where you can post a comment, and view comments from others. When you fill out the form, text appears next to each input about whether you've filled out each part correctly.
+
+To view this app: http://changeable-building.surge.sh
 
 
 ## Usage
@@ -26,18 +28,15 @@
 At the top of your `main.scss` file, just import any of the following:
 
 ```scss
-@import "bourbon";
-@import "neat";
-
 @import "foundation";
 
-@import "font-awesome";
 ```
 
-> Note: You probably don't want to use BOTH Bourbon/Neat & Foundation. Just pick one.
 
 ## NPM Tools Used
 
+- [Angular]
+- [Angular-UI-Router]
 - [Babel](https://babeljs.io/)
 - [Browserify](http://browserify.org/)
 - [JavaScript Code Style](http://jscs.info/)
