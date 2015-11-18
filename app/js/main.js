@@ -33308,32 +33308,127 @@ exports['default'] = config;
 module.exports = exports['default'];
 
 },{}],5:[function(require,module,exports){
-"use strict";
+'use strict';
 
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var AddController = function AddController() {};
-
-AddController.$inject = [];
-
-exports["default"] = AddController;
-module.exports = exports["default"];
+exports['default'] = {
+  URL: 'https://api.parse.com/1/',
+  CONFIG: {
+    headers: {
+      'X-Parse-Application-Id': 'HY5L4q38l3rdC76WxTDY1YijO5T36SlTgk0LTzh9',
+      'X-Parse-REST-API-Key': 'r2EGRpgOLlX6vAeGD30A051afHf8A32pHTtYPAww'
+    }
+  }
+};
+module.exports = exports['default'];
 
 },{}],6:[function(require,module,exports){
-"use strict";
+'use strict';
 
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var HomeController = function HomeController() {};
+var AddController = function AddController($state, $scope, CommentService) {
 
-HomeController.$inject = [];
+  var vm = this;
 
-exports["default"] = HomeController;
-module.exports = exports["default"];
+  vm.addComment = addComment;
+
+  function addComment(commentObj) {
+    CommentService.addComment(commentObj).then(function (res) {
+      console.log(res);
+      $state.go('root.home');
+    });
+  }
+
+  // validate form fields
+
+  var validateName = function validateName(name) {
+    if (name.length <= 0) {
+      $scope.msgN = 'YOU HAVE TO FILL THIS OUT';
+    } else {
+      $scope.msgN = 'Looks Good!';
+    }
+  };
+
+  var validateEmail = function validateEmail(email) {
+    var emailSymbol = email.indexOf('@');
+    if (emailSymbol <= 0) {
+      $scope.msgE = 'YOU MUST INCLUDE @';
+    } else {
+      $scope.msgE = 'Looks Good!';
+    }
+  };
+
+  var validateWebsite = function validateWebsite(website) {
+    var webVal = website.indexOf('http://');
+    var webVal2 = website.indexOf('https://');
+    if (webVal < 0 && webVal2 < 0) {
+      $scope.msgW = 'need http:// or https://';
+    } else {
+      $scope.msgW = 'looks good!';
+    }
+  };
+
+  var validateMessage = function validateMessage(message) {
+    if (message.length <= 0) {
+      $scope.msgM = 'YOU HAVE TO FILL THIS OUT';
+    } else {
+      $scope.msgM = 'Looks Good!';
+    }
+  };
+
+  // actual validation
+
+  $scope.$watch('comment.name', function (name) {
+    validateName(name);
+  });
+
+  $scope.$watch('comment.email', function (email) {
+    validateEmail(email);
+  });
+
+  $scope.$watch('comment.website', function (website) {
+    validateWebsite(website);
+  });
+
+  $scope.$watch('comment.message', function (message) {
+    validateMessage(message);
+  });
+};
+
+AddController.$inject = ['$state', '$scope', 'CommentService'];
+
+exports['default'] = AddController;
+module.exports = exports['default'];
 
 },{}],7:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+var HomeController = function HomeController(CommentService) {
+
+  var vm = this;
+
+  vm.commentList = commentList;
+
+  function commentList() {
+    CommentService.getComments().then(function (res) {
+      console.log(res);
+    });
+  }
+};
+
+HomeController.$inject = ['CommentService'];
+
+exports['default'] = HomeController;
+module.exports = exports['default'];
+
+},{}],8:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -33348,6 +33443,10 @@ var _config = require('./config');
 
 var _config2 = _interopRequireDefault(_config);
 
+var _constantsParseConstant = require('./constants/parse.constant');
+
+var _constantsParseConstant2 = _interopRequireDefault(_constantsParseConstant);
+
 var _controllersHomecontroller = require('./controllers/homecontroller');
 
 var _controllersHomecontroller2 = _interopRequireDefault(_controllersHomecontroller);
@@ -33356,9 +33455,48 @@ var _controllersAddcontroller = require('./controllers/addcontroller');
 
 var _controllersAddcontroller2 = _interopRequireDefault(_controllersAddcontroller);
 
-_angular2['default'].module('app', ['ui.router']).config(_config2['default']).controller('HomeController', _controllersHomecontroller2['default']).controller('AddController', _controllersAddcontroller2['default']);
+var _servicesCommentservice = require('./services/commentservice');
 
-},{"./config":4,"./controllers/addcontroller":5,"./controllers/homecontroller":6,"angular":3,"angular-ui-router":1}]},{},[7])
+var _servicesCommentservice2 = _interopRequireDefault(_servicesCommentservice);
+
+_angular2['default'].module('app', ['ui.router']).constant('PARSE', _constantsParseConstant2['default']).config(_config2['default']).controller('HomeController', _controllersHomecontroller2['default']).controller('AddController', _controllersAddcontroller2['default']).service('CommentService', _servicesCommentservice2['default']);
+
+},{"./config":4,"./constants/parse.constant":5,"./controllers/addcontroller":6,"./controllers/homecontroller":7,"./services/commentservice":9,"angular":3,"angular-ui-router":1}],9:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+var CommentService = function CommentService($http, PARSE) {
+
+  var url = PARSE.URL + 'classes/comment';
+
+  this.addComment = addComment;
+  this.getComments = getComments;
+
+  var Comment = function Comment(commentObj) {
+    this.name = commentObj.name;
+    this.email = commentObj.email;
+    this.website = commentObj.website;
+    this.message = commentObj.message;
+  };
+
+  function addComment(commentObj) {
+    var c = new Comment(commentObj);
+    return $http.post(url, c, PARSE.CONFIG);
+  }
+
+  function getComments() {
+    return $http.get(url, PARSE.CONFIG);
+  }
+};
+
+CommentService.$inject = ['$http', 'PARSE'];
+
+exports['default'] = CommentService;
+module.exports = exports['default'];
+
+},{}]},{},[8])
 
 
 //# sourceMappingURL=main.js.map

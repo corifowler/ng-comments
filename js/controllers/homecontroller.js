@@ -1,9 +1,17 @@
-let HomeController = function() {
+let HomeController = function(CommentService) {
   
-  
+  let vm = this;
+
+  vm.commentList = commentList;
+
+  function commentList () {
+    CommentService.getComments().then( (res) => {
+      console.log(res);
+    });
+  }
 
 };
 
-HomeController.$inject = [];
+HomeController.$inject = ['CommentService'];
 
 export default HomeController;
