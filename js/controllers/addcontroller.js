@@ -14,7 +14,6 @@ let AddController = function($state, $scope, CommentService) {
   // validate form fields
 
   let validateName = (name) => {
-    console.log(name.length);
     if (name.length <= 1) {
       $scope.msgN = 'YOU HAVE TO FILL THIS OUT';
     } else {
@@ -42,7 +41,6 @@ let AddController = function($state, $scope, CommentService) {
   };
 
   let validateMessage = (message) => {
-    console.log(message.length);
     if (message.length <= 1) {
       $scope.msgM = 'YOU HAVE TO FILL THIS OUT';
     } else {
