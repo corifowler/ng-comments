@@ -14,7 +14,8 @@ let AddController = function($state, $scope, CommentService) {
   // validate form fields
 
   let validateName = (name) => {
-    if (name.length <= 0) {
+    console.log(name.length);
+    if (name.length <= 1) {
       $scope.msgN = 'YOU HAVE TO FILL THIS OUT';
     } else {
       $scope.msgN = 'Looks Good!';
@@ -41,7 +42,8 @@ let AddController = function($state, $scope, CommentService) {
   };
 
   let validateMessage = (message) => {
-    if (message.length <= 0) {
+    console.log(message.length);
+    if (message.length <= 1) {
       $scope.msgM = 'YOU HAVE TO FILL THIS OUT';
     } else {
       $scope.msgM = 'Looks Good!';
@@ -49,18 +51,22 @@ let AddController = function($state, $scope, CommentService) {
   };
   
   $scope.$watch('comment.name', function(name) {
+    if (!name) return;
     validateName(name);
   });
 
   $scope.$watch('comment.email', function(email) {
+    if (!email) return;    
     validateEmail(email);
   });
 
   $scope.$watch('comment.website', function(website) {
+    if (!website) return;    
     validateWebsite(website);
   });
 
   $scope.$watch('comment.message', function(message) {
+    if (!message) return;
     validateMessage(message);
   });
 
