@@ -2,13 +2,13 @@ let HomeController = function(CommentService) {
   
   let vm = this;
 
-  vm.commentList = commentList;
+  CommentService.getComments().then( (res) => {
+    vm.comments = res.data.results;
+    console.log(vm.comments);
+    return vm.comments;
+  });
 
-  function commentList () {
-    CommentService.getComments().then( (res) => {
-      console.log(res);
-    });
-  }
+
 
 };
 

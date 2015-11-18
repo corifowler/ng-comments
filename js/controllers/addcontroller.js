@@ -1,5 +1,5 @@
 let AddController = function($state, $scope, CommentService) {
-  
+ 
   let vm = this;
 
   vm.addComment = addComment;
@@ -47,10 +47,7 @@ let AddController = function($state, $scope, CommentService) {
       $scope.msgM = 'Looks Good!';
     }
   };
-
-
-  // actual validation
-
+  
   $scope.$watch('comment.name', function(name) {
     validateName(name);
   });
@@ -66,7 +63,6 @@ let AddController = function($state, $scope, CommentService) {
   $scope.$watch('comment.message', function(message) {
     validateMessage(message);
   });
-
 
 };
 

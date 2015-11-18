@@ -33380,8 +33380,6 @@ var AddController = function AddController($state, $scope, CommentService) {
     }
   };
 
-  // actual validation
-
   $scope.$watch('comment.name', function (name) {
     validateName(name);
   });
@@ -33414,13 +33412,11 @@ var HomeController = function HomeController(CommentService) {
 
   var vm = this;
 
-  vm.commentList = commentList;
-
-  function commentList() {
-    CommentService.getComments().then(function (res) {
-      console.log(res);
-    });
-  }
+  CommentService.getComments().then(function (res) {
+    vm.comments = res.data.results;
+    console.log(vm.comments);
+    return vm.comments;
+  });
 };
 
 HomeController.$inject = ['CommentService'];

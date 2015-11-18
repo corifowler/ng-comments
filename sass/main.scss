@@ -10,3 +10,15 @@ body {
   margin: 15px auto;
   width: 80%;
 }
+
+.add {
+
+  input {
+    max-width: 50%;
+    display: inline-block;
+  }
+
+  button {
+    display: block;
+  }
+}

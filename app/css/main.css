@@ -6394,4 +6394,11 @@ body {
   margin: 15px auto;
   width: 80%; }
 
+.add input {
+  max-width: 50%;
+  display: inline-block; }
+
+.add button {
+  display: block; }
+
 /*# sourceMappingURL=main.css.map */
