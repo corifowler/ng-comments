@@ -4,6 +4,7 @@
 
 body {
   background: #e2ebf3;
+  font-family: 'Roboto Slab', serif;  
 }
 
 .container {
@@ -20,5 +21,25 @@ body {
 
   button {
     display: block;
+  }
+
+  textarea {
+    max-width: 50%;
+    display: inline-block;
+  }
+}
+
+.comment-wrapper {
+  margin: 15px auto;
+  width: 60%;
+}
+
+.no-bullet {
+  span {
+    font-weight: bold;
+  }
+
+  p {
+    font-size: 13px;
   }
 }

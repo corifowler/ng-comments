@@ -6388,7 +6388,8 @@ th.hide-for-touch {
     display: table-cell !important; } }
 
 body {
-  background: #e2ebf3; }
+  background: #e2ebf3;
+  font-family: 'Roboto Slab', serif; }
 
 .container {
   margin: 15px auto;
@@ -6400,5 +6401,19 @@ body {
 
 .add button {
   display: block; }
+
+.add textarea {
+  max-width: 50%;
+  display: inline-block; }
+
+.comment-wrapper {
+  margin: 15px auto;
+  width: 60%; }
+
+.no-bullet span {
+  font-weight: bold; }
+
+.no-bullet p {
+  font-size: 13px; }
 
 /*# sourceMappingURL=main.css.map */

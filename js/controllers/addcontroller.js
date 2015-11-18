@@ -36,7 +36,7 @@ let AddController = function($state, $scope, CommentService) {
     if ((webVal < 0) && (webVal2 < 0)) {
       $scope.msgW = 'need http:// or https://';
     } else {
-      $scope.msgW = 'looks good!';
+      $scope.msgW = 'Looks Good!';
     }
   };
 

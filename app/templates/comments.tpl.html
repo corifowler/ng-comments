@@ -1,8 +1,13 @@
-<h3>What are people saying?</h3>
+<div class="comment-wrapper">
+  <h3>What are people saying?</h3>
+  <hr>
 
-<ul ng-repeat="comment in vm.comments">
-  <li>{{comment.name}}</li>
-  <li>{{comment.email}}</li>
-  <li>{{comment.website}}</li>
-  <li>{{comment.message}}</li>
-</ul>
+  <ul class="no-bullet" ng-repeat="comment in vm.comments">
+    <li>
+    <span>{{comment.name}}</span>
+    <p>{{comment.email}} | <a href="{{comment.website}}">{{comment.website}}</a></p>
+    {{comment.message}}
+    <hr>
+    </li>
+  </ul>
+</div>
